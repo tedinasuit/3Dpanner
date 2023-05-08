@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Colour</title>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+  </head>
+  <body>
+    <select onchange="color(this.value)">
+      <option value="">Auto</option>
+      <option value="blue">Blue</option>
+      <option value="green">Green</option>
+      <option value="red">Red</option>
+    </select>
+
+    <a id="cs-btn" href="colour-settings.html">Colour Settings</a>
+    <a id="pnr-btn" href="panner.html">3D Panner</a>
+
+    <script>
+      function color(value) {
+        if (value === '') {
+          updateBackgroundColor();
+        } else {
+          document.body.style.backgroundColor = value;
+        }
+      }
+
+      function updateBackgroundColor() {
+        const hourColors = JSON.parse(localStorage.getItem('hourColors'));
+        if (!hourColors) {
+          return;
+        }
+        const now = new Date();
+        const currentHour = now.getHours();
+        const currentColor = hourColors[currentHour];
+        document.body.style.backgroundColor = currentColor;
+      }
+
+      updateBackgroundColor();
+    </script>
+  </body>
+</html>
